@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/Index")
 public class TestMvcController {
 	@RequestMapping(value="/index",method=RequestMethod.GET)
-	public String home() {
-		 return "home";
+	public String index() {
+		 return "index";
 	}
 }
