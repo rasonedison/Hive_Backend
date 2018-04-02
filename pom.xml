@@ -22,6 +22,13 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+		      <groupId>com.amazonaws</groupId>
+		      <artifactId>aws-java-sdk-bom</artifactId>
+		      <version>1.11.306</version>
+		      <type>pom</type>
+		      <scope>import</scope>
+		    </dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -77,7 +84,10 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-ec2</artifactId>
+	  	</dependency>
 	</dependencies>
 
 	<build>
