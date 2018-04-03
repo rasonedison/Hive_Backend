@@ -60,6 +60,10 @@ import com.amazonaws.services.ec2.model.StartInstancesRequest;
 import com.amazonaws.services.ec2.model.StopInstancesRequest;
 import com.amazonaws.services.ec2.model.Tag;
 import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
+import com.amazonaws.services.rds.AmazonRDSClient;
+import com.amazonaws.services.rds.model.CreateDBInstanceRequest;
+
+
 
 public class AwsSample {
 
@@ -76,7 +80,8 @@ public class AwsSample {
 	static String keyName = "rason_test";
 	static String imageId = "ami-d8578bb5"; // Basic 32-bit Amazon Linux AMI
 	static String createdInstanceId = null;
-	public static AmazonEC2Client authInit () throws IOException {
+	
+	public static AmazonEC2Client Ec2authInit () throws IOException {
 				credentials = new PropertiesCredentials(
 				AwsSample.class.getResourceAsStream("AwsCredentials.properties"));
 				
@@ -89,7 +94,7 @@ public class AwsSample {
 				return (AmazonEC2Client) ec2;
 	}
 	
-	public static void createInstance(String instanceType,int minInstanceCount, int maxInstanceCount ) {
+	public static void createEc2Instance(String instanceType,int minInstanceCount, int maxInstanceCount ) {
 		System.out.println("#4.3 Create an Instance");
 		
 		RunInstancesRequest rir = new RunInstancesRequest();
@@ -114,7 +119,7 @@ public class AwsSample {
 		
 	}
 	
-	public static void createTagForInstance() {
+	public static void createEc2TagForInstance() {
 		System.out.println("#5 Create a 'tag' for the new instance.");
 		List<String> resources = new LinkedList<String>();
 		List<Tag> tags = new LinkedList<Tag>();
@@ -125,7 +130,7 @@ public class AwsSample {
 		ec2.createTags(ctr);
 	}
 
-	public static Set<Instance> getInstanceList(){
+	public static Set<Instance> getEc2InstanceList(){
 		System.out.println("#9 Describe Current Instances");
 		DescribeInstancesResult describeInstancesRequest = ec2.describeInstances();
 		List<Reservation> reservations = describeInstancesRequest.getReservations();
@@ -148,63 +153,52 @@ public class AwsSample {
 		}
 		return instances;
 	} 
+	
+	public static void createRdsInstance() throws IOException {
+		
+		credentials = new PropertiesCredentials(
+				AwsSample.class.getResourceAsStream("AwsCredentials.properties"));
+				AmazonRDSClient rds = new AmazonRDSClient(credentials);
+				
+				Region region = Region.getRegion(Regions.fromName("cn-north-1"));
+				rds.setRegion(region);
+				System.out.println(rds);
+				
+				//createDBInstance(CreateDBInstanceRequest request)
+				CreateDBInstanceRequest request = new CreateDBInstanceRequest();
+				request.setAllocatedStorage(50);
+				request.setLicenseModel("general-public-license");
+				request.setEngine("mysql");
+				request.setEngineVersion("5.7.16");
+				request.setMultiAZ(true);
+				request.setDBInstanceClass("db.t2.micro");
+				request.setStorageType("standard");
+				request.setDBInstanceIdentifier("test1");
+				request.setMasterUsername("mysqlInfinitus");
+				request.setMasterUserPassword("Infinitus2018!");
+				Collection c = new ArrayList();
+				c.add(groupId);
+				request.setVpcSecurityGroupIds(c);
+				request.setPubliclyAccessible(true);
+				request.setDBName("testApi");
+				request.setPort(3306);
+				//request.dbpa(dBParameterGroupName);
+				rds.createDBInstance(request);
+				System.out.println("rds 创建成功");
+
+	}
 	public static void main(String[] args) throws Exception {
 
-		ec2 = authInit();
-//		createInstance( "t2.small", 1, 1);			
-//		createTagForInstance();
-		getInstanceList();
+//		ec2 = Ec2authInit();
+//		createEc2Instance( "t2.small", 1, 1);			
+//		createEc2TagForInstance();
+//		getEc2InstanceList();.
+//		createRdsInstance();
+		
+		
 		
 		try {
-
-			/*********************************************
-			 * 
-			 * #2 Describe Availability Zones.
-			 * 
-			 *********************************************/
-//			System.out.println("#2 Describe Availability Zones.");
-//			DescribeAvailabilityZonesResult availabilityZonesResult = ec2.describeAvailabilityZones();
-//			System.out.println("You have access to " + availabilityZonesResult.getAvailabilityZones().size()
-//					+ " Availability Zones.");
-
-			/*********************************************
-			 * 
-			 * #3 Describe Available Images
-			 * 
-			 *********************************************/
-//			System.out.println("#3 Describe Available Images");
-//			DescribeImagesResult dir = ec2.describeImages();
-//			List<Image> images = dir.getImages();
-//			System.out.println("You have " + images.size() + " Amazon images");
-
-			/*********************************************
-			 * 
-			 * #4.1 Create a Security Group
-			 * 
-			 *********************************************/
-			//System.out.println("#4.1 Create a Security Group");
-//			String securityGroupName = "SSHminiHW2555555";
-//			CreateSecurityGroupRequest csgr = new CreateSecurityGroupRequest();
-//			csgr.withGroupName(securityGroupName).withDescription("Allow incoming SSH");
-//
-//			CreateSecurityGroupResult securityGroupResult = ec2.createSecurityGroup(csgr);
-
-//			Collection c = new ArrayList();  
-//			c.add(groupId);
-//			DescribeSecurityGroupsRequest describeSecurityGroupsRequest = new DescribeSecurityGroupsRequest();
-//			describeSecurityGroupsRequest.setGroupIds(c);
-//			DescribeSecurityGroupsResult securityGroupResult = ec2.describeSecurityGroups(describeSecurityGroupsRequest);
-//			System.out.println(securityGroupResult.getSecurityGroups());
 			
-			//======================================securityGroupResult
-			
-
-//			IpPermission ipPermission = new IpPermission();
-//			ipPermission.withIpRanges("158.222.146.199/32").withIpProtocol("tcp").withFromPort(22).withToPort(22);
-//
-//			AuthorizeSecurityGroupIngressRequest authorizeSecurityGroupIngressRequest = new AuthorizeSecurityGroupIngressRequest();
-//			authorizeSecurityGroupIngressRequest.withGroupName(securityGroupName).withIpPermissions(ipPermission);
-//			ec2.authorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
 
 		} catch (AmazonServiceException ase) {
 			System.out.println("Caught Exception: " + ase.getMessage());
