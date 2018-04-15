@@ -63,22 +63,19 @@ import com.amazonaws.services.ec2.model.TerminateInstancesRequest;
 import com.amazonaws.services.rds.AmazonRDSClient;
 import com.amazonaws.services.rds.model.CreateDBInstanceRequest;
 
-
-
 public class AwsSample {
 
-	/*
+	/* rason
 	 * Important: Be sure to fill in your AWS access credentials in the
 	 * AwsCredentials.properties file before you try to run this sample.
 	 * http://aws.amazon.com/security-credentials
 	 */
-
 	static AmazonEC2 ec2;
 	static AWSCredentials credentials;
 	static String groupId = "sg-64ebf500";
 	static String securityGroupName = "launch-wizard-1";
-	static String keyName = "rason_test";
-	static String imageId = "ami-d8578bb5"; // Basic 32-bit Amazon Linux AMI
+	static String keyName = "hive";
+	static String imageId = "ami-7219c61f"; // Basic 32-bit Amazon Linux AMI
 	static String createdInstanceId = null;
 	
 	public static AmazonEC2Client Ec2authInit () throws IOException {
@@ -89,7 +86,9 @@ public class AwsSample {
 				System.out.println("#1 Create Amazon Client object");
 				
 				ec2 = new AmazonEC2Client(credentials);
+				//Region region = Region.getRegion(Regions.fromName("cn-north-1"));
 				Region region = Region.getRegion(Regions.fromName("cn-north-1"));
+				
 				ec2.setRegion(region);
 				return (AmazonEC2Client) ec2;
 	}
@@ -184,14 +183,14 @@ public class AwsSample {
 				request.setPort(3306);
 				//request.dbpa(dBParameterGroupName);
 				rds.createDBInstance(request);
-				System.out.println("rds ´´½¨³É¹¦");
+				System.out.println("rds ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 
 	}
 	public static void main(String[] args) throws Exception {
 
-//		ec2 = Ec2authInit();
-//		createEc2Instance( "t2.small", 1, 1);			
-//		createEc2TagForInstance();
+		ec2 = Ec2authInit();
+		createEc2Instance( "t2.small", 1, 1);			
+		createEc2TagForInstance();
 //		getEc2InstanceList();.
 //		createRdsInstance();
 		

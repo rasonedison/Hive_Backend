@@ -4,24 +4,10 @@
 	<groupId>com.hive</groupId>
 	<artifactId>backend</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>war</packaging>  
-	<properties>
-		<commons-lang.version>2.6</commons-lang.version>
-		<slf4j.version>1.7.6</slf4j.version>
-		<spring.version>4.1.3.RELEASE</spring.version>
-        <jackson.version>2.5.4</jackson.version>
-	</properties>
-	
+
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-framework-bom</artifactId>
-				<version>${spring.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<dependency>
 		      <groupId>com.amazonaws</groupId>
 		      <artifactId>aws-java-sdk-bom</artifactId>
@@ -34,33 +20,58 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>${commons-lang.version}</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
+		      <groupId>junit</groupId>
+		      <artifactId>junit</artifactId>
+		      <version>4.11</version>
+		      <scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
+			<version>1.7.12</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.35</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.1.2</version>
+		</dependency>
+
+	    <dependency>
+		  <groupId>org.mybatis</groupId>
+		  <artifactId>mybatis</artifactId>
+		  <version>3.4.6</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.mybatis</groupId>
+		  <artifactId>mybatis-spring</artifactId>
+		  <version>1.2.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
 		</dependency>
 
 		<dependency>
@@ -68,22 +79,73 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 		</dependency>
+		
 		 <dependency>
       		 <groupId>javax.servlet</groupId>
 	     	 <artifactId>jstl</artifactId>
 	     	 <version>1.2</version>
 	    </dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.5.4</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.1</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		<!-- spring core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>4.1.7.RELEASE</version>
+		</dependency>		
 
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.1.7.RELEASE</version>
+		</dependency>		
+		
+		<!-- spring dao -->
+		 <dependency>
+		 	<groupId>org.springframework</groupId>
+		 	<artifactId>spring-jdbc</artifactId>
+			<version>4.1.7.RELEASE</version>
+		 </dependency>
+		 <dependency>
+		 	<groupId>org.springframework</groupId>
+		 	<artifactId>spring-tx</artifactId>
+			<version>4.1.7.RELEASE</version>
+		 </dependency>
+		 
+		<!-- spring web -->
+		 <dependency>
+		 	<groupId>org.springframework</groupId>
+		 	<artifactId>spring-web</artifactId>
+			<version>4.1.7.RELEASE</version>
+		 </dependency>
+		 <dependency>
+		 	<groupId>org.springframework</groupId>
+		 	<artifactId>spring-webmvc</artifactId>
+			<version>4.1.7.RELEASE</version>
+		 </dependency>		 
+
+		<!-- spring test -->
+		 <dependency>
+		 	<groupId>org.springframework</groupId>
+		 	<artifactId>spring-test</artifactId>
+			<version>4.1.7.RELEASE</version>
+		 </dependency>		
+		
+		<!-- aws  -->		
 		<dependency>
 		    <groupId>com.amazonaws</groupId>
 		    <artifactId>aws-java-sdk-ec2</artifactId>
@@ -98,6 +160,7 @@
   		</dependency>
 	</dependencies>
 
+<!-- 
 	<build>
 		<plugins>
 			<plugin>  
@@ -107,5 +170,5 @@
         </plugin>  
 		</plugins>
 	</build>
-	
+ -->	
 </project>
